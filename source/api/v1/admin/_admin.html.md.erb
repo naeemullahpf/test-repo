@@ -1,0 +1,267 @@
+# Admin
+## Add Team
+### End point
+/api/admin/addTeam<br>
+### Method Type
+POST<br>
+### Status code
+Status Code : 200<br>
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|name|name of team to be added|required<br>alphanumericcharacters<br>unique<br>max:20|
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|token|To check whether a user is logged in, authenticate or not.|Must be a valid token|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|name|team name|
+|message|team added successfully|
+
+## Search User
+### End point
+/api/admin/searchUserNotPresentInTeam
+### Method Type
+GET
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|username|Username as a input to search users by username. If username field is empty, it will show all the users not present in team.| Optional
+|company_id|Company id of logged in user| Required, Input type: Integer
+|team_id|Team id of logged in user| Required, Input Type: Integer
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|Id |Id of user
+|email |Email of user
+|username |Username of user
+|profile_picture |Path of profile picture if not null
+|role_id |Role id of user
+|last_login |Timestamp of last time user logged in
+|created_at |Time of user creation
+|updated_at |Time of user updation
+|deleted_at |Time of user deletion
+
+## Show teams
+### End point
+/api/admin/teams
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|company_id|ID of the company whose teams the admin wants to display| Required
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Encrypted token - which is id of the current user| Required
+### Response
+Key| Description
+|---------|-----------
+|Id |Id of team in a company
+|name |Name of a team in a company
+|company_id| ID of the company of which the teams are displayed
+|created_at |Time of user creation
+|updated_at |Time of user updation
+|deleted_at |Time of user deletion
+
+
+## Show Teams users
+### End point
+/api/admin/teamUsers
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|company_id|ID of the company whose admin needs to display| Required
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Encrypted token - which is id of the current user| Required
+### Response
+Key| Description
+|---------|-----------
+|username |Username of user
+
+
+## Add user
+### End point
+/api/admin/addTeamMember
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|company_id|ID of the company having the team in which the user will be added| Required
+|team_id|ID of team in which the user will be added| Required
+|user_to_add|ID of the user needs to be added| Required
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Encrypted token - which is id of the current user| Required
+### Response
+Key| Description
+|---------|-----------
+|user added |ID of added user
+|team| ID of the team in which user is added
+|company| ID of the company in which user is added
+
+
+## Delete user
+### End point
+/api/admin/removeTeamMember
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|company_id|ID of the company of the user| Required
+|team_id|ID of team of the user| Required
+|user_to_add|ID of the user needs to be deleted| Required
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Encrypted token - which is id of the current user| Required
+### Response
+Key| Description
+|---------|-----------
+|user deleted |ID of user deleted
+|team| ID of the team from which the user is deleted
+
+
+## Add member
+### End point
+/api/admin/addNewMemberInCompany
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|email|| Required, email format
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+Token| A specific user token registered in database after login| Required
+|content-type | application\json| Required
+### Response
+Key| Description
+|---------|-----------
+|msg |Response Message
+|status_code| Response status code
+
+## Block User
+### End point
+/api/admin/blockUser
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints|
+|---------|-----------|----------|
+|user_id|The user id specifies the user to be blocked| Required: True,<br/> numeric|
+|company_id|The company id will be received in request to which an admin wants to perform actions.| Required: True,<br/>numeric|
+
+
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------|
+Token| To check whether a user is logged in or not.| Must be a valid token|
+
+### Response
+Key| Description
+|---------|-----------|
+|message |This will show a message string about the action performed by the API. This can contain a failure message or a success message.|
+
+## Delete User
+### End point
+/api/admin/deleteCompanyUser
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints|
+|---------|-----------|----------|
+|user_id|The user id specifies the user to be deleted| Required: True,<br/> numeric|
+|company_id|The company id will be received in request to which an admin wants to perform actions.| Required: True,<br/>numeric|
+
+
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------|
+Token| To check whether a user is logged in or not.| Must be a valid token|
+
+### Response
+Key| Description
+|---------|-----------|
+|message |TThis will show a message string about the action performed by the API. This can contain a failure message or a success message.|
+
+## Edit Company Name
+### End point
+/api/admin/editCompanyName
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints|
+|---------|-----------|----------|
+|company_id|To check the company exists or not and the logged in admin own that company| Required: True,<br/>numeric|
+|name|To update the name of the company| Required: True,<br/>Min:2<br/>unique:companies|
+
+
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------|
+Token| To check whether a user is logged in or not.| Must be a valid token|
+
+### Response
+Key| Description
+|---------|-----------|
+|message |This will show a message string about the action performed by the API. This can contain a failure message or a success message|
+
+
+
+## Show Company Users
+### End point
+/api/admin/companyUsers
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints|
+|---------|-----------|----------|
+|company_id|D of the company to show all of its users| Required: True|
+
+
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------|
+token| Encrypted token  - which is id of the current Admin user| Required: True|
+
+### Response
+Key| Description
+|---------|-----------|
+|Company users |JSON response having all users of company|

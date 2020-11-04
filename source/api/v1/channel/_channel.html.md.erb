@@ -1,0 +1,118 @@
+# Channels
+
+## Create channel
+### End point
+/api/channel/create
+### Method Type
+POST
+### Status code
+201
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|name| name of new channel| Required, alphanumeric, max:20
+|type| public or private| Required
+|team_id| ID of the team in which channel is created| Required, numeric
+|Description| Description of channel| max:100
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|name |Channel name
+|message| success message for channel creation
+|type| private/public
+
+
+## Add User
+### End point
+/api/channel/insert-user
+### Method Type
+POST
+### Status code
+201
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|user_id| ID of the user| Required, numeric
+|channel_id| ID of the channel| Required, numeric
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|username |name of user added in channel
+|message| success message for adding user
+
+
+## Delete user
+### End point
+/api/channel/delete
+### Method Type
+POST
+### Status code
+201
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|user_id| ID of the user| Required, numeric
+|channel_id| ID of the channel| Required, numeric
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|username |Username of deleted user
+|message| success message for delete user
+
+
+## Update channel
+### End point
+/api/channel/update
+### Method Type
+POST
+### Status code
+201
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|name| New name of channel| Required, alphanumeric, max:20
+|channel_id| ID of the channel to be updated| Required, numeric
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|name |New name of channel
+|message| success message for channel update
+
+
+## Show users
+### End point
+/api/channel/show
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|channel_id| ID of the channel| Required, numeric
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|id| ID of the channel
+|name |New name of channel
+|users| list of existing users in channel

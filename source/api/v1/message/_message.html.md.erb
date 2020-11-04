@@ -1,0 +1,124 @@
+# Messages
+
+## Send Message
+### End point
+/api/message/sendMessage<br>
+### Method Type
+POST<br>
+### Status code
+200<br>
+
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|receiver_id|To send direct message|Must be a number|
+|company_id|To check team in the entered company|Must be a number|
+|team_id|To check the channel or user/receiver in the team|Must be a number|
+|channel_id|To send message in channel|Must be a number|
+|message|Files can be sent with some message as well|Required if there is no other field is filled|
+|files|Files can be sent with some message as well|Can upload any type of file|
+|audio|There should only be audio if the audio file is sent|Must be a valid Base64 and message and files attribute must be empty|
+|video|There should only be video if the video/screen recorded file is sent|Must be a valid Base64 and message and files attribute must be empty|
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|token|The token will be used to verify the user and to get the user’s role id|N/A|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|message|This will show a message string about the action performed by the API. This can contain a failure message or a success message.|
+
+
+## Delete Message
+### End point
+/api/message/deleteMessage
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|message_id|Id of the message which the user want to delete| Required
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Encrypted token - which is id of the current user| Required
+### Response
+Key| Description
+|---------|-----------
+|message| Message deleted successfully
+
+## Edit Message
+### End point
+/api/message/editMessage
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|message_id|Id of the message which the user want to edit| Required
+|new_message| Changed message/updated message| Optional
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Encrypted token - which is id of the current user| Required
+### Response
+Key| Description
+|---------|-----------
+|message| Message edited successfully
+
+## Fetch Messages of individual user
+### End point
+/api/message/chat-receiver_id
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|receiver_id|Id of the receiver| Required, numeric
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|id|Id of the message
+|message| Content of message
+|profile_picture| Avatar of user
+|username| Username of user
+|created_at| Timestamp of message creation
+|attachment| An array which contain id, size, path & extension of attachment
+
+## Fetch Messages of group/channel
+### End point
+/api/message/chat-group_id
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|channel_id|Id of the channel| Required, numeric
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|id|Id of the message
+|message| Content of message
+|user_id| ID of the message sender
+|channel_id| ID of the channel in which message is being displayed
+|profile_picture| Avatar of user
+|username| Username of user
+|created_at| Timestamp of message creation
+|attachment| An array which contain id, size, path & extension of attachment

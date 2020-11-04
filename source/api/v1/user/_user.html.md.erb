@@ -1,0 +1,303 @@
+# Users
+## Change Password
+### End point
+/api/user/changepassword <br>
+### Method Type
+Post<br>
+### Status code
+200<br>
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|password|old/current password of the user to change/update and to set new password|Min: 6<br> Max: 255<br> Required: True<br> Regex: 1 uppercase character 1 lowercase character, 1 special character and 1 number|
+|newpassword|Password to be updated/changed.|Min:6 <br> Max:255 <br> Regex: 1 uppercase character 1 lowercase character,1 special character  and 1 number, different:password, Required: True|
+|newpassword_confirmation|Confirmation of new password.|Same as newpassword <br> Required: True when newpassword given.|
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|content-type|Type for sending post data. If using raw body it will be in json form. But if Post form data then it will be multipart/form-data.|Required: true|
+|Token|For hitting the end point/route of change password token should be present in the header. Token to verify the user|Required: true|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|message|Proper messages/response to update/inform the user.|
+|status|Http status code to inform the user.|
+
+## Forgot Password
+### Endpoint
+<br>/api/user/forgotPassword<br>
+### Method Type
+POST<br>
+### Status code
+200<br>
+
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|email|This API takes an email so that it can send an OTP to that email if it is registered.|Required: True<br>Format: Email|
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|N/A|N/A|N/A|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|message|Message string is returned in response in case of success.|
+
+## OTP
+### Endpoint
+/api/user/enterOtp<br>
+### Method Type
+POST<br>
+### Status code
+200<br>
+
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|email|This API takes email against which the OTP is to be authenticated from the Database.|Required: True<br>Format: Email|
+|Otp|Gets an OTP from the user and checks if the OTP is authentic. |none|
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|N/A|N/A|N/A|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|message|Message string is returned in response in case of success.|
+
+## New Password
+### Endpoint
+/api/user/enterNewPassword<br>
+### Method Type
+POST<br>
+### Status code
+200<br>
+
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|email|This API takes an email against which the password will be updated in the database.|Required: True<br>Format: Email|
+|password|It takes a new password that will be updated against the email in the database if the OTP is authenticated.|Bail, Required: True<br> Min: 6, Max: 255<br>Format: password<br>Must have 1 capital letter, Must have 1 small letter, Must have 1 special letter, Must have 1 digit|
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|N/A|N/A|N/A|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|message|Message string is returned in response in case of success.|
+
+## Login
+### End point
+/api/user/login<br>
+### Method Type
+POST<br>
+### Status code
+200<br>
+
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|email|Users can login if email is registered.|Required : True<br>Format:Must be valid email|
+|password|Users cannot login without a password.|Bail, Required: True<br> Min: 6, Max: 255<br>Format: password <br> Must have 1 capital letter, Must have 1 small letter, Must have 1 special letter, Must have 1 digit|
+
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|N/A|N/A|N/A|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|message|admin/user/first_login|
+|token|A token will be generated for every logged in user to authenticate all further operations on the system.|
+|data|All the data of currently logged in user will be returned.Role id, token, profile_picture, Companies in which he is hired, teams in which he is enrolled. Channels in that team etc.
+|
+
+
+
+## Signup
+### End point
+/api/user/signup<br>
+### Method Type
+POST<br>
+### Status code
+200<br>
+
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|username|A unique username will be entered for the company owner|Bail, Required: True<br> Min: 6, Max: 255, Format: Must start with a letter, Must have a number, Must have a . or _, Unique|
+|email|Enter valid email for registration.|Bail<br>Required:True<br>Must be valid email<br>Unique<br>|
+|company_name|Enter Company name for registration.|Bail<br>Required:True<br>Must be unique<br>Min:2<br>Unique<br>|
+|owner_name|Enter Owner name for registration.|Bail<br>Required: True<br>Must be alphabets<br>|
+|password|Users cannot login without a password. Password must be in valid format.|Required: True<br> Min: 6<br>Max: 255<br>Format: password<br>Must be 1 capital letter,Must be 1 small letter, Must be 1 special letter,Must be 1 digit|
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|N/A|N/A|N/A|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|message|This will show a message string about the action performed by the API. This can contain a failure message or a success message.|
+
+
+## Logout
+### End point
+/api/user/logout<br>
+### Method Type
+POST<br>
+### Status code
+200<br>
+
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|N/A|N/A|N/A|
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|token|This token will be used to check whether a user is logged in or not.|N/A|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|message|This will show a message string about the action performed by the API. This can contain a failure message or a success message.|
+
+## First Login
+### End point
+/api/user/firstlogin<br>
+### Method Type
+POST<br>
+### Status code
+200<br>
+
+<p><strong>Request</strong></p>
+|Key|Description|Constraints|
+|----------|-----------|-----------|
+|new_password|A new password will be entered on first login to update the users default password.|Bail, Required: True<br> Min: 6<br>Max: 255<br>Format: password<br>Must be 1 capital letter,Must be 1 small letter, Must be 1 special letter,Must be 1 digit|
+|confirm_password|New password is re-entered and matched with new_password field|Bail, Required: True<br> Min: 6<br>Max: 255<br>Format: password<br>Must be 1 capital letter,Must be 1 small letter, Must be 1 special letter,Must be 1 digit|
+|username|A username will be entered to update and set a username for each user on first login|Bail, Required: True <br> Min: 6, Max: 255 Format: Must start with a letter, Must have a number, Must have a . or _, Unique|
+<p><strong>Headers</strong></p>
+|key|Description|Constraints|
+|----------|-----------|-----------|
+|token|To check whether a user is logged in or not.|Must be a valid token|
+
+<p><strong>Response</strong></p>
+|key|Description|
+|----------|-----------|
+|message|This will show a message string about the action performed by the API. This can contain a failure message or a success message.|
+
+## Search User by Email
+### End point
+/api/user/searchUserByEmail
+### Method Type
+GET
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|Email|Email as a input to search users by email. If email field is empty, it will show all the users of a team.| Optional
+|Company id|Company id of logged in user| Required, Input type: Integer
+|Team id|Team id of logged in user| Required, Input Type: Integer
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|Id |Id of user
+|email |Email of user
+|username |Username of user
+|profile_picture |Path of profile picture if not null
+|role_id |Role id of user
+|last_login |Timestamp of last time user logged in
+|created_at |Time of user creation
+|updated_at |Time of user updation
+|deleted_at |Time of user deletion
+
+
+## Search User by Username
+### End point
+/api/user/searchUserByUsername
+### Method Type
+GET
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|Username|Username as a input to search users by username. If username field is empty, it will show all the users of a team.| Optional
+|Company id|Company id of logged in user| Required, Input type: Integer
+|Team id|Team id of logged in user| Required, Input Type: Integer
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Token for authentication| Required
+### Response
+Key| Description
+|---------|-----------
+|Id |Id of user
+|email |Email of user
+|username |Username of user
+|profile_picture |Path of profile picture if not null
+|role_id |Role id of user
+|last_login |Timestamp of last time user logged in
+|created_at |Time of user creation
+|updated_at |Time of user updation
+|deleted_at |Time of user deletion
+
+
+## Update profile Picture
+### End point
+/api/user/updateuserprofile
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|profile_picture |Profile picture belongs to a registered user of the app.| Required, Mimes:jpeg,png,jpg, Size:2 MB
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Token for authentication| Required
+|content-type | application\json| Required
+### Response
+Key| Description
+|---------|-----------
+|Message| Response Message
+|Status code | Response status code
+
+
+## Update username
+### End point
+/api/user/updateusername
+### Method Type
+POST
+### Status code
+200
+### Request Input Schema
+Key| Description| Constraints
+|---------|-----------|----------
+|Username |Username belongs to user of the app| Required, Unique, Max:30, Min:3
+### Headers
+Key| Description| Constraints
+|---------|-----------|----------
+|Token| Token for authentication| Required
+|content-type | application\json| Required
+### Response
+Key| Description
+|---------|-----------
+|Message| Response Message
+|Status code | Response status code
+|username| Username which is updated
